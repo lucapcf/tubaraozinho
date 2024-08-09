@@ -1,0 +1,10 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block content %}
+<form method="post" action="{% url 'profile' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Create Idea</button>
+</form>
+{% endblock %}
