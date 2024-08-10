@@ -122,3 +122,7 @@ def filter_ideas(request):
 def idea(request, idea_id):
     idea = get_object_or_404(Idea, pk=idea_id)
     return render(request, "browse/idea.html", {"idea": idea})
+
+@login_required
+def aplicar(request):
+    return render(request, 'accounts/aplicou.html')
