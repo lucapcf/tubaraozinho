@@ -6,7 +6,8 @@ from random import randint
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
 django.setup()
 
-from accounts.models import User, UserProfile, Enterprise, Idea
+from accounts.models import User, UserProfile, Enterprise
+from ideas.models import Idea
 
 
 def create_user(username, password, email, first, last):
@@ -43,8 +44,16 @@ def create_idea(user_profile, title, description):
 
 def populate():
     investors = [("Alice", "Johnson"), ("Bob", "Smith"), ("Carol", "Williams")]
-    entrepreneurs_standard = [("David", "Brown"), ("Eve", "Davis"), ("Frank", "Miller")]
-    entrepreneurs_premium = [("Grace", "Wilson"), ("Harry", "Moore"), ("Ivy", "Taylor")]
+    entrepreneurs_standard = [
+        ("David", "Brown"),
+        ("Eve", "Davis"),
+        ("Frank", "Miller"),
+    ]
+    entrepreneurs_premium = [
+        ("Grace", "Wilson"),
+        ("Harry", "Moore"),
+        ("Ivy", "Taylor"),
+    ]
 
     for i, (first, last) in enumerate(investors, 1):
         user = create_user(

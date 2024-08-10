@@ -1,0 +1,13 @@
+{% block content %}
+
+<div class="col-md-4 mb-4">
+    <div class="card h-100">
+        <div class="card-body">
+            <h5 class="card-title">{{ idea.title }}</h5>
+            <p class="card-text">{{ idea.description|truncatewords:20 }}</p>
+            <a href="{% url 'ideas:idea' idea.id %}" class="btn btn-primary">Saiba Mais</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

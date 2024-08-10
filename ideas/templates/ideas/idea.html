@@ -1,4 +1,4 @@
-{% extends 'accounts/base.html' %}
+{% extends 'dashboard/base.html' %}
 {% load static %}
 
 {% block content %}
@@ -9,9 +9,9 @@
             <h5 class="card-title">{{ idea.title }}</h5>
             <p class="card-text">{{ idea.description|truncatewords:20 }}</p>
             <div class="d-flex justify-content-between">
-            <a href="{% url 'browse' %}" class="btn btn-primary">Voltar</a>
+            <button onclick="history.back()" class="btn btn-primary">Voltar</button>
             {% if user.userprofile.role == 'investor' %}
-                <a href="{% url 'aplicar' %}" class="btn btn-secondary">Aplicar</a>
+                <a href="{% url 'accounts:aplicar' %}" class="btn btn-secondary">Aplicar</a>
             {% endif %}
             </div>
         </div>
