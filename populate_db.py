@@ -37,7 +37,12 @@ def create_enterprise(user_profile, name, cnpj):
 
 def create_idea(user_profile, title, description):
     idea = Idea.objects.create(
-        user_profile=user_profile, title=title, description=description
+        user_profile=user_profile,
+        title=title,
+        description=description,
+        investment_value=0,
+        return_on_investment=0,
+        elapsed_time=0,
     )
     return idea
 
