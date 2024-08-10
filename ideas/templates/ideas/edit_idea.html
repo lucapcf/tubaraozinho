@@ -1,7 +1,6 @@
-{% extends 'dashboard/base.html' %}
-{% load static %}
+{% extends "dashboard/base.html" %}
 
-{% block title %}Criar Ideia{% endblock %}
+{% block title %}Editar Ideia{% endblock %}
 
 {% block content %}
 <div class="container">
@@ -9,18 +8,16 @@
         <div class="col-md-8 offset-md-2">
             <div class="card">
                 <div class="card-header">
-                    <h2>Criar Nova Ideia</h2>
+                    <h2>Editar Ideia</h2>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{% url 'accounts:profile' %}">
+                    <form method="post">
                         {% csrf_token %}
                         <div class="form-group">
-                            {{ form.title.errors }}
                             <label for="id_title">Título da Ideia</label>
                             {{ form.title }}
                         </div>
                         <div class="form-group">
-                            {{ form.description.errors }}
                             <label for="id_description">Descrição</label>
                             {{ form.description }}
                         </div>
@@ -29,17 +26,15 @@
                             {{ form.investment_value }}
                         </div>
                         <div class="form-group">
-                            {{ form.elapsed_time.errors }}
                             <label for="id_elapsed_time">Tempo de Retorno (meses)</label>
                             {{ form.elapsed_time }}
                         </div>
                         <div class="form-group">
-                            {{ form.return_on_investment.errors }}
                             <label for="id_return_on_investment">Retorno de Capital (%)</label>
                             {{ form.return_on_investment }}
                         </div>
                         <div class="text-center mt-4">
-                            <button type="submit" class="btn btn-primary">Criar Ideia</button>
+                            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
                         </div>
                     </form>
                 </div>

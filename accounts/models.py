@@ -1,9 +1,10 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
+from django.core.exceptions import ValidationError
 
 
 class User(AbstractUser):
-    pass
+    email = models.EmailField(unique=True)
 
 
 class UserProfile(models.Model):
@@ -26,10 +27,16 @@ class UserProfile(models.Model):
     cpf = models.CharField(max_length=11, unique=True)
 
     def save(self, *args, **kwargs):
-        if self.role == "investor":
-            if self.entrepreneur_tier:
-                self.entrepreneur_tier = None
+        self.clean()
         super().save(*args, **kwargs)
+
+    def clean(self):
+        if self.role == "investor" and self.entrepreneur_tier:
+            raise ValidationError(
+                {
+                    "entrepreneur_tier": "Investors cannot have an entrepreneur tier"
+                }
+            )
 
     def __str__(self):
         return self.user.username

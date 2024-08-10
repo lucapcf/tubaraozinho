@@ -12,44 +12,62 @@ Registro de Usuário - Tubarãozinho
             <form method="post">
                 {% csrf_token %}
                 <div class="form-group">
-                    {{ user_form.username.label_tag }}
+                    {{ user_form.username.errors }}
+                    Username
                     {{ user_form.username }}
                 </div>
                 <div class="form-group">
-                    {{ user_form.first_name.label_tag }}
+                    {{ user_form.first_name.errors }}
+                    Nome
                     {{ user_form.first_name }}
                 </div>
                 <div class="form-group">
-                    {{ user_form.last_name.label_tag }}
+                    {{ user_form.last_name.errors }}
+                    Sobrenome
                     {{ user_form.last_name }}
                 </div>
                 <div class="form-group">
-                    {{ user_profile_form.cpf.label_tag }}
+                    {{ user_profile_form.cpf.errors }}
+                    CPF
                     {{ user_profile_form.cpf }}
                 </div>
                 <div class="form-group">
-                    {{ user_form.email.label_tag }}
+                    {{ user_form.email.errors }}
+                    E-mail
                     {{ user_form.email }}
                 </div>
                 <div class="form-group">
-                    {{ user_profile_form.role.label_tag }}
+                    {{ user_profile_form.role.errors }}
+                    Role
                     {{ user_profile_form.role }}
                 </div>
                 <div id="entrepreneur-tier-fields" style="display: none;">
                     <div class="form-group">
-                        {{ user_profile_form.entrepreneur_tier.label_tag }}
+                        {{ user_profile_form.entrepreneur_tier.errors }}
+                        Tipo de conta
                         {{ user_profile_form.entrepreneur_tier }}
                     </div>
                 </div>
                 <div id="enterprise-fields" style="display: none;">
-                    {{ enterprise_form.as_p }}
+                    <div class="form-group">
+                        {{ enterprise_form.name.errors }}
+                        Nome da empresa
+                        {{ enterprise_form.name }}
+                    </div>
+                    <div class="form-group">
+                        {{ enterprise_form.cnpj.errors }}
+                        CNPJ
+                        {{ enterprise_form.cnpj }}
+                    </div>
                 </div>
                 <div class="form-group">
-                    {{ user_form.password1.label_tag }}
+                    {{ user_form.password1.errors }}
+                    Senha
                     {{ user_form.password1 }}
                 </div>
                 <div class="form-group">
-                    {{ user_form.password2.label_tag }}
+                    {{ user_form.password2.errors }}
+                    Confirmar senha
                     {{ user_form.password2 }}
                 </div>
                 <button type="submit" class="btn btn-primary">Registrar</button>
