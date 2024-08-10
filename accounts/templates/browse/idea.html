@@ -2,13 +2,18 @@
 {% load static %}
 
 {% block content %}
-<h1>GUILLERMO NOGUEIRAAA</h1>
+<h1>GUILLERMO NOGUEIRAAAAAA</h1>
 <div class="col-md-4 mb-4">
     <div class="card h-100">
         <div class="card-body">
             <h5 class="card-title">{{ idea.title }}</h5>
             <p class="card-text">{{ idea.description|truncatewords:20 }}</p>
+            <div class="d-flex justify-content-between">
             <a href="{% url 'browse' %}" class="btn btn-primary">Voltar</a>
+            {% if user.userprofile.role == 'investor' %}
+                <a href="{% url 'aplicar' %}" class="btn btn-secondary">Aplicar</a>
+            {% endif %}
+            </div>
         </div>
     </div>
 </div>
