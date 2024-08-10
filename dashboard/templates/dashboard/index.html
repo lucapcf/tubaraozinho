@@ -1,4 +1,4 @@
-{% extends 'accounts/base.html' %}
+{% extends 'dashboard/base.html' %}
 {% load static %}
 
 {% block content %}
@@ -8,10 +8,10 @@
             <div class="col-md-6">
                 <h1>Conectando Ideias e Investidores</h1>
                 <p class="lead">Transforme sua ideia em realidade ou invista no próximo grande negócio.</p>
-                <a href="{% url 'register' %}" class="btn btn-light btn-lg">Comece Agora</a>
+                <a href="{% url 'dashboard:register' %}" class="btn btn-light btn-lg">Comece Agora</a>
             </div>
             <div class="col-md-6">
-                <img src="{% static 'img/hero-image.jpg' %}" alt="Hero Image" class="img-fluid rounded">
+                <!-- <img src="{% static 'img/hero-image.jpg' %}" alt="Hero Image" class="img-fluid rounded"> -->
             </div>
         </div>
     </div>
@@ -61,15 +61,7 @@
         <h2 class="text-center mb-4">Ideias em Destaque</h2>
         <div class="row">
             {% for idea in featured_ideas %}
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ idea.title }}</h5>
-                        <p class="card-text">{{ idea.description|truncatewords:20 }}</p>
-                        <a href="#" class="btn btn-primary">Saiba Mais</a>
-                    </div>
-                </div>
-            </div>
+                {% include "ideas/card_idea.html" %}
             {% endfor %}
         </div>
     </div>

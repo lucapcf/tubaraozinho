@@ -3,7 +3,8 @@ from django.contrib.auth.forms import (
     UserCreationForm as BaseUserCreationForm,
     AuthenticationForm,
 )
-from .models import User, UserProfile, Enterprise, Idea
+from .models import User, UserProfile, Enterprise
+from ideas.models import Idea
 
 
 class UserCreationForm(BaseUserCreationForm):
@@ -33,13 +34,9 @@ class EnterpriseCreationForm(forms.ModelForm):
 
 
 class LoginForm(AuthenticationForm):
-    username = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}))
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={"class": "form-control"})
+    )
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={"class": "form-control"})
     )
-
-
-class IdeaForm(forms.ModelForm):
-    class Meta:
-        model = Idea
-        fields = ["title", "description"]

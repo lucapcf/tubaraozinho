@@ -1,0 +1,21 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>BROWSEEEEEE   COOOOCCKKKKK</h1>
+<form action="{% url 'dashboard:filter_ideas' %}" method="get">
+    <input type="text" name="title" placeholder="Search ideas by title..." value="{{ request.GET.title }}">
+    <button type="submit">Search</button>
+</form>
+<section id="ideias" class="py-5">
+    <div class="container">
+        <div class="row">
+            {% for idea in ideas %}
+                {% include "ideas/card_idea.html" %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
