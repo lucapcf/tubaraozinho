@@ -1,14 +1,13 @@
 import os
 import django
 from django.utils.crypto import get_random_string
-from random import randint
+import decimal
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
 django.setup()
 
 from accounts.models import User, UserProfile, Enterprise
 from ideas.models import Idea
-
 
 def create_user(username, password, email, first, last):
     user = User.objects.create_user(
@@ -20,13 +19,11 @@ def create_user(username, password, email, first, last):
     )
     return user
 
-
 def create_user_profile(user, role, cpf, entrepreneur_tier=None):
     profile = UserProfile.objects.create(
         user=user, role=role, cpf=cpf, entrepreneur_tier=entrepreneur_tier
     )
     return profile
-
 
 def create_enterprise(user_profile, name, cnpj):
     enterprise = Enterprise.objects.create(
@@ -34,96 +31,71 @@ def create_enterprise(user_profile, name, cnpj):
     )
     return enterprise
 
-
-def create_idea(user_profile, title, description):
+def create_idea(user_profile, title, description, investment_value):
     idea = Idea.objects.create(
         user_profile=user_profile,
         title=title,
         description=description,
-        investment_value=0,
-        return_on_investment=0,
-        elapsed_time=0,
+        investment_value=investment_value,
+        return_on_investment=decimal.Decimal("0.00")
     )
     return idea
 
-
 def populate():
-    investors = [("Alice", "Johnson"), ("Bob", "Smith"), ("Carol", "Williams")]
-    entrepreneurs_standard = [
-        ("David", "Brown"),
-        ("Eve", "Davis"),
-        ("Frank", "Miller"),
+    investors_info = [
+        ("Alice", "Silva", "aliceinv"),
+        ("Roberto", "Costa", "robertoinv"),
+        ("Maria", "Fernandes", "mariainv")
     ]
-    entrepreneurs_premium = [
-        ("Grace", "Wilson"),
-        ("Harry", "Moore"),
-        ("Ivy", "Taylor"),
+    entrepreneurs_standard_info = [
+        ("Carlos", "Machado", "carlosemp"),
+        ("Joana", "Prado", "joanaemp"),
+        ("Lucas", "Pereira", "lucasemp")
+    ]
+    entrepreneurs_premium_info = [
+        ("Ana", "Ribeiro", "anaemp"),
+        ("Felipe", "Santos", "felipeemp"),
+        ("Clara", "Soares", "claraemp")
     ]
 
-    for i, (first, last) in enumerate(investors, 1):
-        user = create_user(
-            f"investor{i}", "123123", f"investor{i}@example.com", first, last
-        )
-        create_user_profile(
-            user,
-            "investor",
-            cpf=get_random_string(length=11, allowed_chars="1234567890"),
-        )
+    # Criar investidores
+    for first, last, username in investors_info:
+        user = create_user(f"{username}", "123123", f"{username}@example.com", first, last)
+        create_user_profile(user, "investor", cpf=get_random_string(length=11, allowed_chars="1234567890"))
 
-    for i, (first, last) in enumerate(entrepreneurs_standard, 1):
-        user = create_user(
-            f"entrepreneur_standard{i}",
-            "123123",
-            f"entrepreneur_standard{i}@example.com",
-            first,
-            last,
-        )
+    # Criar empreendedores standard
+    for i, (first, last, username) in enumerate(entrepreneurs_standard_info, 1):
+        user = create_user(f"{username}", "123123", f"{username}@example.com", first, last)
         profile = create_user_profile(
-            user,
-            "entrepreneur",
-            cpf=get_random_string(length=11, allowed_chars="1234567890"),
-            entrepreneur_tier="standard",
+            user, "entrepreneur", cpf=get_random_string(length=11, allowed_chars="1234567890"), entrepreneur_tier="standard"
         )
-        create_enterprise(
-            profile,
-            f"Enterprise Standard {i}",
-            cnpj=get_random_string(length=14, allowed_chars="1234567890"),
-        )
+        create_enterprise(profile, f"Startup Standard {i}", get_random_string(length=14, allowed_chars="1234567890"))
 
-        for j in range(1, 4):
-            create_idea(
-                profile,
-                f"Idea {j} of Standard Entrepreneur {i}",
-                f"This is a description of idea {j} for Entrepreneur {i}.",
-            )
+        ideas = [
+            ("Plataforma de E-learning", "Plataforma interativa para cursos online com foco em tecnologia e negócios.", decimal.Decimal("20000.00")),
+            ("App de Saúde Mental", "Aplicativo que oferece técnicas de mindfulness e acompanhamento psicológico online.", decimal.Decimal("15000.00")),
+            ("Solução de Caronas Compartilhadas", "Sistema para otimizar o compartilhamento de caronas em áreas urbanas, reduzindo o tráfego e a poluição.", decimal.Decimal("25000.00"))
+        ]
 
-    for i, (first, last) in enumerate(entrepreneurs_premium, 1):
-        user = create_user(
-            f"entrepreneur_premium{i}",
-            "123123",
-            f"entrepreneur_premium{i}@example.com",
-            first,
-            last,
-        )
+        for title, description, investment_value in ideas:
+            create_idea(profile, title, description, investment_value)
+
+    # Criar empreendedores premium
+    for i, (first, last, username) in enumerate(entrepreneurs_premium_info, 1):
+        user = create_user(f"{username}", "123123", f"{username}@example.com", first, last)
         profile = create_user_profile(
-            user,
-            "entrepreneur",
-            cpf=get_random_string(length=11, allowed_chars="1234567890"),
-            entrepreneur_tier="premium",
+            user, "entrepreneur", cpf=get_random_string(length=11, allowed_chars="1234567890"), entrepreneur_tier="premium"
         )
-        create_enterprise(
-            profile,
-            f"Enterprise Premium {i}",
-            cnpj=get_random_string(length=14, allowed_chars="1234567890"),
-        )
+        create_enterprise(profile, f"Startup Premium {i}", get_random_string(length=14, allowed_chars="1234567890"))
 
-        for j in range(1, 4):
-            create_idea(
-                profile,
-                f"Idea {j} of Premium Entrepreneur {i}",
-                f"This is a description of idea {j} for Entrepreneur {i}.",
-            )
+        ideas = [
+            ("Plataforma de Inteligência Artificial", "Sistema avançado de AI para personalização de conteúdo em mídias sociais.", decimal.Decimal("50000.00")),
+            ("Solução IoT para Agricultura", "Dispositivos IoT para monitoramento e análise de grandes culturas agrícolas, melhorando a eficiência e a produtividade.", decimal.Decimal("40000.00")),
+            ("Sistema Blockchain para Logística", "Plataforma que utiliza blockchain para garantir a transparência e a segurança na cadeia de suprimentos.", decimal.Decimal("55000.00"))
+        ]
 
+        for title, description, investment_value in ideas:
+            create_idea(profile, title, description, investment_value)
 
 if __name__ == "__main__":
     populate()

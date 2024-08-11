@@ -42,8 +42,8 @@
                         <a href="{% url 'accounts:login' %}" class="btn btn-secondary me-2">Login</a>
                         <a href="{% url 'accounts:register' %}" class="btn btn-primary">Cadastre-se</a>
                         {% else %}
-                        <a href="{% url 'accounts:logout' %}" class="btn btn-secondary me-2">Logout</a>
-                        <a href="{% url 'accounts:profile' %}" class="btn btn-secondary me-2">Profile</a>
+                        <a href="{% url 'accounts:logout' %}" class="btn btn-danger me-2">Logout</a>
+                        <a href="{% url 'accounts:profile' %}" class="btn btn-info me-2">Profile</a>
                         {% endif %}
                     </div>
                 </div>

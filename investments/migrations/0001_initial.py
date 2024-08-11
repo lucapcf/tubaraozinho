@@ -10,11 +10,12 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ("accounts", "0001_initial"),
+        ("ideas", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name="Idea",
+            name="Investment",
             fields=[
                 (
                     "id",
@@ -25,23 +26,23 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("title", models.CharField(max_length=200)),
+                ("amount", models.DecimalField(decimal_places=2, max_digits=10)),
+                ("date_invested", models.DateTimeField(auto_now_add=True)),
                 (
-                    "investment_value",
-                    models.DecimalField(decimal_places=2, max_digits=10),
+                    "idea",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="investments",
+                        to="ideas.idea",
+                    ),
                 ),
-                ("elapsed_time", models.IntegerField(default=0)),
                 (
-                    "return_on_investment",
-                    models.DecimalField(decimal_places=2, max_digits=5),
-                ),
-                ("description", models.TextField()),
-                ("created_at", models.DateTimeField(auto_now_add=True)),
-                (
-                    "user_profile",
+                    "investor",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name="ideas",
+                        related_name="investors",
                         to="accounts.userprofile",
                     ),
                 ),

@@ -1,0 +1,24 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Investir em uma Ideia{% endblock %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Investment</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Investir na ideia:</h2>
+        <h3>{{ idea.title }}</h3>
+        <form method="post" action="{% url 'investments:make_investment' idea.id %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Invest</button>
+        </form>
+    </div>
+</body>
+{% endblock %}
