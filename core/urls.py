@@ -8,5 +8,6 @@ urlpatterns = [
     path("dashboard/", include("dashboard.urls", namespace="dashboard")),
     path("accounts/", include("accounts.urls", namespace="accounts")),
     path("ideas/", include("ideas.urls", namespace="ideas")),
+    path("investments/", include("investments.urls", namespace="investments")),
     path("admin/", admin.site.urls),
 ]

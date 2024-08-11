@@ -24,7 +24,7 @@ def index(request):
 
 @login_required
 def browse(request):
-    ideas = Idea.objects.all()
+    ideas = Idea.objects.all().select_related('user_profile').order_by('user_profile__entrepreneur_tier', '-created_at')
     return render(request, "dashboard/browse.html", {"ideas": ideas})
 
 

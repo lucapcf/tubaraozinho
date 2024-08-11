@@ -3,8 +3,8 @@
 {% block content %}
 <div class="container mt-4">
     <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <div class="card">
+        <div class="col-md-8">
+            <div class="card {% if idea.user_profile.entrepreneur_tier == 'premium' %}bg-warning{% endif %}">
                 <div class="card-header">
                     <h1>{{ idea.title }}</h1>
                 </div>
@@ -20,9 +20,32 @@
                             <a href="{% url 'ideas:edit_idea' idea.id %}" class="btn btn-warning">Editar Ideia</a>
                         {% endif %}
                         {% if user.userprofile.role == 'investor' %}
-                            <a href="{% url 'accounts:aplicar' %}" class="btn btn-secondary">Aplicar</a>
+                            <a href="{% url 'investments:make_investment' idea.id %}" class="btn btn-secondary">Aplicar</a>
+                        {% endif %}
+                        {% if idea.investments.exists %}
+                            <a class="btn btn-secondary">Em negociação</a>
                         {% endif %}
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Propostas</h2>
+                </div>
+                <div class="card-body">
+                    <ul class="row">
+                        {% for investment in idea.investments.all %}
+                            <div class="col-12 mb-4"> <!-- Full width for each card -->
+                                {% include 'investments/card_investment.html' with investment=investment %}
+                            </div>
+                        {% empty %}
+                            <div class="col-12">
+                                <p>Nenhuma proposta foi feita ainda.</p>
+                            </div>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
         </div>

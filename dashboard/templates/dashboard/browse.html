@@ -3,11 +3,16 @@
 
 {% block content %}
 
-<h1>BROWSEEEEEE   COOOOCCKKKKK</h1>
-<form action="{% url 'dashboard:filter_ideas' %}" method="get">
-    <input type="text" name="title" placeholder="Search ideas by title..." value="{{ request.GET.title }}">
-    <button type="submit">Search</button>
+<h1>Explorar</h1>
+<form action="{% url 'dashboard:filter_ideas' %}" method="get" class="form-inline mb-4">
+    <div class="input-group w-100">
+        <input type="text" name="title" class="form-control" placeholder="Search ideas by title..." value="{{ request.GET.title }}">
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">Procurar</button>
+        </div>
+    </div>
 </form>
+
 <section id="ideias" class="py-5">
     <div class="container">
         <div class="row">

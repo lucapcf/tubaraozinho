@@ -104,10 +104,12 @@ def profile(request):
 
     user_ideas = request.user.userprofile.ideas.all()
 
+    user_investments = request.user.userprofile.investments.all()
+
     return render(
         request,
         "accounts/profile.html",
-        {"form": form, "user_ideas": user_ideas},
+        {"form": form, "user_ideas": user_ideas, "user_investments": user_investments},
     )
 
 
@@ -133,14 +135,3 @@ def edit_profile(request):
         "accounts/edit_profile.html",
         {"user_form": user_form, "profile_form": profile_form},
     )
-
-
-@login_required
-def idea(request, idea_id):
-    idea = get_object_or_404(Idea, pk=idea_id)
-    return render(request, "accounts/idea.html", {"idea": idea})
-
-
-@login_required
-def aplicar(request):
-    return render(request, "accounts/aplicou.html")

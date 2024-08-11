@@ -24,6 +24,7 @@
             </div>
         </div>
     </div>
+    {% if user.userprofile.role == 'entrepreneur' %}
     <section id="ideias" class="py-5">
         <div class="container">
             <h2 class="text-center mb-4">Ideias</h2>
@@ -34,5 +35,17 @@
             </div>
         </div>
     </section>
+    {% else %}
+    <section id="propostas" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Propostas</h2>
+            <div class="row">
+                {% for investment in user_investments %}
+                    {% include "investments/card_investment.html" %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
 </div>
 {% endblock %}

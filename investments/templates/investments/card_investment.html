@@ -1,0 +1,18 @@
+{% block content %}
+
+<div class="col-12 mb-4">
+    <div class="card h-100">
+        <div class="card-body">
+            <h5 class="card-title">{{ investment.idea.title }}</h5>
+            <p class="card-text">Valor: R${{ investment.amount }}</p>
+            <div class="status-box mt-3 px-3 py-1 text-white rounded-pill {% if investment.status == 'aprovado' %}bg-success{% elif investment.status == 'pendente' %}bg-warning{% elif investment.status == 'rejeitado' %}bg-danger{% else %}bg-secondary{% endif %}">
+                {{ investment.status|capfirst }}
+            </div>
+            {% if investment.status != 'aprovado' %}
+                <a href="{% url 'investments:edit_investment' investment.id %}" class="btn btn-primary mt-3">Aceitar</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
