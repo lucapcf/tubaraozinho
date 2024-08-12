@@ -35,6 +35,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'dashboard:browse' %}" style="color: white;">Explorar</a>
                         </li>
+                        {% if request.user.userprofile and request.user.userprofile.role == "entrepreneur" %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'ideas:create_idea' %}" style="color: white;">Criar Ideia</a>
+                        </li>
+                        {% endif %}
                         {% endif %}
                     </ul>
                     <div class="d-flex">
