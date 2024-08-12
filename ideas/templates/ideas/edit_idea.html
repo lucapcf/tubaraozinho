@@ -3,34 +3,34 @@
 {% block title %}Editar Ideia{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <div class="card">
-                <div class="card-header">
-                    <h2>Editar Ideia</h2>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Editar Ideia</h2>
                 </div>
                 <div class="card-body">
                     <form method="post">
                         {% csrf_token %}
-                        <div class="form-group">
-                            <label for="id_title">Título da Ideia</label>
+                        <div class="form-group mb-4">
+                            <label for="id_title" class="font-weight-bold">Título da Ideia</label>
                             {{ form.title }}
                         </div>
-                        <div class="form-group">
-                            <label for="id_description">Descrição</label>
-                            {{ form.description }}
+                        <div class="form-group mb-4">
+                            <label for="id_description" class="font-weight-bold">Descrição</label>
+                            <div>{{ form.description }}</div>
                         </div>
-                        <div class="form-group">
-                            <label for="id_investment_value">Valor Investido</label>
-                            {{ form.investment_value }}
+                        <div class="form-group mb-4">
+                            <label for="id_investment_value" class="font-weight-bold">Valor Investido</label>
+                            {{ form.investment_value }} Reais
                         </div>
-                        <div class="form-group">
-                            <label for="id_elapsed_time">Tempo de Retorno (meses)</label>
+                        <div class="form-group mb-4">
+                            <label for="id_elapsed_time" class="font-weight-bold">Tempo de Retorno (meses)</label>
                             {{ form.elapsed_time }}
                         </div>
-                        <div class="form-group">
-                            <label for="id_return_on_investment">Retorno de Capital (%)</label>
+                        <div class="form-group mb-4">
+                            <label for="id_return_on_investment" class="font-weight-bold">Retorno de Capital (%)</label>
                             {{ form.return_on_investment }}
                         </div>
                         <div class="text-center mt-4">
