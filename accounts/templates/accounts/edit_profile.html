@@ -17,7 +17,10 @@
                             {{ user_form.as_p }}
                         </div>
                         <div class="form-group">
-                            {{ profile_form.as_p }}
+                            {{ user_profile_form.as_p }}
+                        </div>
+                        <div id="enterprise-fields" class="form-group">
+                            {{ enterprise_form.as_p }}
                         </div>
                         <div class="text-center mt-4">
                             <button type="submit" class="btn btn-primary">Salvar Alterações</button>
@@ -28,4 +31,28 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var roleField = document.querySelector('#id_role');
+        var enterpriseFields = document.getElementById('enterprise-fields');
+        var enterpriseName = document.getElementById('id_name');
+        var enterpriseCNPJ = document.getElementById('id_cnpj');
+
+        function toggleFields() {
+            if (roleField.value === 'entrepreneur') {
+                enterpriseFields.style.display = 'block';
+                enterpriseName.required = true;
+                enterpriseCNPJ.required = true;
+            } else {
+                enterpriseFields.style.display = 'none';
+                enterpriseName.required = false;
+                enterpriseCNPJ.required = false;
+            }
+        }
+
+        roleField.addEventListener('change', toggleFields);
+        toggleFields();
+    });
+</script>
 {% endblock %}
