@@ -47,13 +47,12 @@ def register(request):
     if request.method == "POST":
         user_form = UserCreationForm(request.POST)
         user_profile_form = UserProfileCreationForm(request.POST)
-        enterprise_form = None
+        enterprise_form = EnterpriseCreationForm(request.POST)
 
         valid = user_form.is_valid() and user_profile_form.is_valid()
         if valid:
             role = user_profile_form.cleaned_data.get("role")
             if role == "entrepreneur":
-                enterprise_form = EnterpriseCreationForm(request.POST)
                 valid = valid and enterprise_form.is_valid()
 
         if valid:

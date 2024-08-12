@@ -17,7 +17,9 @@
                     <p><strong>E-mail:</strong> {{ user.email }}</p>
                     <p><strong>CPF:</strong> {{ user.userprofile.cpf }}</p>
                     <div class="text-center mt-4">
-                        <a href="{% url 'ideas:create_idea' %}" class="btn btn-primary">Criar Ideia</a>
+                        {% if user.userprofile.role == 'Empreendedor' %}
+                            <a href="{% url 'ideas:create_idea' %}" class="btn btn-primary">Criar Ideia</a>
+                        {% endif %}
                         <a href="{% url 'accounts:edit_profile' %}" class="btn btn-secondary ml-2">Editar Perfil</a>
                     </div>
                 </div>
@@ -27,7 +29,7 @@
     {% if user.userprofile.role == 'entrepreneur' %}
     <section id="ideias" class="py-5">
         <div class="container">
-            <h2 class="text-center mb-4">Ideias</h2>
+            <h2 class="text-center text-white mb-4">Ideias</h2>
             <div class="row">
                 {% for idea in user_ideas %}
                     {% include "ideas/card_idea.html" %}

@@ -41,6 +41,7 @@ class UserProfileCreationForm(forms.ModelForm):
 
 
 class EnterpriseCreationForm(forms.ModelForm):
+    
     class Meta:
         model = Enterprise
         fields = ("name", "cnpj")

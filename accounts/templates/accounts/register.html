@@ -87,14 +87,20 @@ Registro de Usuário - Tubarãozinho
         var roleField = document.querySelector('#id_role');
         var entrepreneurTierFields = document.getElementById('entrepreneur-tier-fields');
         var enterpriseFields = document.getElementById('enterprise-fields');
+        var enterpriseName = document.getElementById('id_name');
+        var enterpriseCNPJ = document.getElementById('id_cnpj');
 
         function toggleFields() {
             if (roleField.value === 'entrepreneur') {
                 entrepreneurTierFields.style.display = 'block';
                 enterpriseFields.style.display = 'block';
+                enterpriseName.required = true;
+                enterpriseCNPJ.required = true;
             } else {
                 entrepreneurTierFields.style.display = 'none';
                 enterpriseFields.style.display = 'none';
+                enterpriseName.required = false;
+                enterpriseCNPJ.required = false;
             }
         }
 

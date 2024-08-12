@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<section class="hero bg-primary text-white py-5">
+<section class="card bg-dark text-white py-5">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-6">
@@ -11,22 +11,21 @@
                 <a href="{% url 'accounts:register' %}" class="btn btn-light btn-lg">Comece Agora</a>
             </div>
             <div class="col-md-6">
-                <!-- <img src="{% static 'img/hero-image.jpg' %}" alt="Hero Image" class="img-fluid rounded"> -->
             </div>
         </div>
     </div>
 </section>
 
 <section id="about" class="py-5">
-    <div class="container">
+    <div class="container text-white">
         <h2 class="text-center mb-4">Sobre a Tubarãozinho</h2>
         <p class="lead text-center">A Tubarãozinho é uma plataforma inovadora que conecta empreendedores criativos com investidores visionários. Nossa missão é fomentar o ecossistema empreendedor, transformando ideias promissoras em negócios de sucesso.</p>
     </div>
 </section>
 
-<section id="how-it-works" class="bg-light py-5">
+<section id="how-it-works" class="card bg-dark py-5">
     <div class="container">
-        <h2 class="text-center mb-4">Como Funciona</h2>
+        <h2 class="text-center text-white mb-4">Como Funciona</h2>
         <div class="row">
             <div class="col-md-4">
                 <div class="card mb-4">
@@ -58,7 +57,7 @@
 
 <section id="ideias" class="py-5">
     <div class="container">
-        <h2 class="text-center mb-4">Ideias em Destaque</h2>
+        <h2 class="text-center text-white mb-4">Ideias em Destaque</h2>
         <div class="row">
             {% for idea in featured_ideas %}
                 {% include "ideas/card_idea.html" %}

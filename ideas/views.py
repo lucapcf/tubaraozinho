@@ -16,7 +16,13 @@ from django.forms import inlineformset_factory
 @login_required
 def idea(request, idea_id):
     idea = get_object_or_404(Idea, pk=idea_id)
-    return render(request, "ideas/idea.html", {"idea": idea})
+
+    any_accepted_investment = idea.investments.filter(status="aprovado").exists()
+
+    return render(request, "ideas/idea.html", {
+        "idea": idea,
+        "any_accepted_investment": any_accepted_investment
+    })
 
 
 @login_required
