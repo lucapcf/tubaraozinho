@@ -4,6 +4,8 @@ from ideas.models import Idea
 from .models import Investment
 from django.contrib.auth.decorators import login_required
 
+from django.contrib import messages
+
 @login_required
 def make_investment(request, idea_id):
     idea = get_object_or_404(Idea, id=idea_id)
@@ -15,7 +17,8 @@ def make_investment(request, idea_id):
             investment.investor = request.user.userprofile
             investment.idea = idea
             investment.save()
-            return redirect("investments:invested")
+            messages.success(request, 'Investimento realizado com sucesso!')
+            return redirect("ideas:idea", idea_id=idea_id)
     else:
         form = InvestmentForm(initial={'idea': idea})
     
@@ -28,15 +31,18 @@ def invested(request):
 
 
 @login_required
-def edit_investment(request, investment_id):
+def accept_investment(request, investment_id):
     investment = get_object_or_404(Investment, id=investment_id)
     idea = investment.idea
 
-    # Update the status of the accepted investment
     investment.status = 'aprovado'
     investment.save()
 
-    # Set all other investments in the same idea to 'rejeitado'
     Investment.objects.filter(idea=idea).exclude(id=investment_id).update(status='rejeitado')
 
-    return redirect("ideas:idea", idea_id=idea.id)
+    any_accepted_investment = idea.investments.filter(status='aprovado').exists()
+
+    return render(request, 'ideas/idea.html', {
+        'idea': idea,
+        'any_accepted_investment': any_accepted_investment,
+    })

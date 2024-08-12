@@ -5,11 +5,11 @@
         <div class="card-body">
             <h5 class="card-title">{{ investment.idea.title }}</h5>
             <p class="card-text">Valor: R${{ investment.amount }}</p>
-            <div class="status-box mt-3 px-3 py-1 text-white rounded-pill {% if investment.status == 'aprovado' %}bg-success{% elif investment.status == 'pendente' %}bg-warning{% elif investment.status == 'rejeitado' %}bg-danger{% else %}bg-secondary{% endif %}">
+            <div class="card mt-3 px-3 py-1 text-white {% if investment.status == 'aprovado' %}bg-success{% elif investment.status == 'pendente' %}bg-warning{% elif investment.status == 'rejeitado' %}bg-danger{% else %}bg-secondary{% endif %}">
                 {{ investment.status|capfirst }}
             </div>
-            {% if investment.status != 'aprovado' %}
-                <a href="{% url 'investments:edit_investment' investment.id %}" class="btn btn-primary mt-3">Aceitar</a>
+            {% if not any_accepted_investment and investment.status != 'aprovado' and investment.idea.user_profile.user == request.user %}
+                <a href="{% url 'investments:accept_investment' investment.id %}" class="btn btn-primary mt-3">Aceitar</a>
             {% endif %}
         </div>
     </div>

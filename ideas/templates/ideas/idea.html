@@ -10,20 +10,19 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Detalhes da Ideia</h5>
+                    <p class="card-text"><strong>Empreendedor:</strong> {{ idea.user_profile.user.first_name }} {{ idea.user_profile.user.last_name }}</p>
+                    <p class="card-text"><strong>Contato:</strong> {{ idea.user_profile.user.email }}</p>
                     <p class="card-text"><strong>Descrição:</strong> {{ idea.description }}</p>
-                    <p class="card-text"><strong>Valor investido:</strong> {{ idea.investment_value }}</p>
+                    <p class="card-text"><strong>Valor investido: R$</strong> {{ idea.investment_value }}</p>
                     <p class="card-text"><strong>Tempo de retorno:</strong> {{ idea.elapsed_time }} meses</p>
                     <p class="card-text"><strong>Retorno de capital:</strong> {{ idea.return_on_investment }}%</p>
                     <div class="d-flex justify-content-between mt-4">
-                        <button onclick="history.back()" class="btn btn-primary">Voltar</button>
+                        <button onclick="history.back()" class="btn btn-secondary">Voltar</button>
                         {% if idea.user_profile.user == request.user %}
                             <a href="{% url 'ideas:edit_idea' idea.id %}" class="btn btn-warning">Editar Ideia</a>
                         {% endif %}
-                        {% if user.userprofile.role == 'investor' %}
-                            <a href="{% url 'investments:make_investment' idea.id %}" class="btn btn-secondary">Aplicar</a>
-                        {% endif %}
-                        {% if idea.investments.exists %}
-                            <a class="btn btn-secondary">Em negociação</a>
+                        {% if user.userprofile.role == 'investor' and not any_accepted_investment %}
+                            <a href="{% url 'investments:make_investment' idea.id %}" class="btn btn-primary">Aplicar</a>
                         {% endif %}
                     </div>
                 </div>
@@ -37,7 +36,7 @@
                 <div class="card-body">
                     <ul class="row">
                         {% for investment in idea.investments.all %}
-                            <div class="col-12 mb-4"> <!-- Full width for each card -->
+                            <div class="col-12 mb-4">
                                 {% include 'investments/card_investment.html' with investment=investment %}
                             </div>
                         {% empty %}

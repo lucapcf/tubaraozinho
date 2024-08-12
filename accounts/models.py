@@ -46,12 +46,10 @@ class Enterprise(models.Model):
     user_profile = models.OneToOneField(
         UserProfile,
         on_delete=models.CASCADE,
-        related_name="enterprise",
-        null=True,
-        blank=True,
+        related_name="enterprise"
     )
-    name = models.CharField(max_length=255, null=True, blank=True)
-    cnpj = models.CharField(max_length=14, unique=True, null=True, blank=True)
+    name = models.CharField(max_length=255)
+    cnpj = models.CharField(max_length=14, unique=True)
 
     def __str__(self):
         return self.name
