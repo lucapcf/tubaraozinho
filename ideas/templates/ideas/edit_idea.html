@@ -11,7 +11,7 @@
                     <h2 class="mb-0">Editar Ideia</h2>
                 </div>
                 <div class="card-body">
-                    <form method="post">
+                    <form id="form-edit" method="post">
                         {% csrf_token %}
                         <div class="form-group mb-4">
                             <label for="id_title" class="font-weight-bold">Título da Ideia</label>
@@ -33,10 +33,14 @@
                             <label for="id_return_on_investment" class="font-weight-bold">Retorno de Capital (%)</label>
                             {{ form.return_on_investment }}
                         </div>
-                        <div class="text-center mt-4">
-                            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
-                        </div>
                     </form>
+                    <form id="form-delete" style="display: none;" method="post" action="{% url 'ideas:delete_idea' idea.id %}">
+                        {% csrf_token %}
+                    </form>
+                    <div class="form-group mb-4">
+                        <button style="float: left;" onclick="document.getElementById('form-delete').submit()" class="btn btn-danger">Apagar Ideia</button>
+                        <button style="float: right;" onclick="document.getElementById('form-edit').submit()" class="btn btn-primary">Salvar Alterações</button>
+                    </div>
                 </div>
             </div>
         </div>

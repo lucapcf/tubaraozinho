@@ -53,3 +53,12 @@ def edit_idea(request, idea_id):
     else:
         form = IdeaForm(instance=idea)
     return render(request, "ideas/edit_idea.html", {"form": form, "idea": idea})
+
+
+@login_required
+def delete_idea(request, idea_id):
+    idea = get_object_or_404(Idea, pk=idea_id)
+    if idea.user_profile.user != request.user:
+        raise PermissionDenied()
+    idea.delete()
+    return redirect("dashboard:browse")
