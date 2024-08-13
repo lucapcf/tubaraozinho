@@ -61,7 +61,7 @@ def register(request):
                 enterprise.user_profile = user_profile
                 enterprise.save()
 
-            auth_login(
+            auth.login(
                 request,
                 user,
                 backend="django.contrib.auth.backends.ModelBackend",
