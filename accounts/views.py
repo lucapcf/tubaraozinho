@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.forms import inlineformset_factory
 from django.shortcuts import get_object_or_404, redirect, render
 
+
 from accounts.forms import (
     EnterpriseCreationForm,
     LoginForm,
@@ -95,9 +96,14 @@ def profile(request):
     else:
         form = IdeaForm()
 
-    user_ideas = request.user.userprofile.ideas.all()
-
-    user_investments = request.user.userprofile.investments.all()
+    try:
+        user_profile = request.user.userprofile
+    except UserProfile.DoesNotExist:
+        user_ideas = []
+        user_investments = []
+    else:
+        user_ideas = user_profile.ideas.all()
+        user_investments = user_profile.investments.all()
 
     return render(
         request,
