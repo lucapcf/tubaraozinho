@@ -114,11 +114,16 @@ def profile(request):
 
 @login_required
 def edit_profile(request):
-    user_profile = request.user.userprofile
     try:
-        enterprise = request.user.userprofile.enterprise
-    except Enterprise.DoesNotExist:
+        user_profile = request.user.userprofile
+    except UserProfile.DoesNotExist:
+        user_profile = None
         enterprise = None
+    else:
+        try:
+            enterprise = user_profile.enterprise
+        except Enterprise.DoesNotExist:
+            enterprise = None
 
     if request.method == "POST":
         user_form = UserChangeForm(request.POST, instance=request.user)
